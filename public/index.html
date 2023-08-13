@@ -9,11 +9,9 @@
             font-family: Arial, sans-serif;
             background-color: #f0f0f0;
             margin: 0;
-            padding: 0;
             display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
+            align-items: center;
             height: 100vh;
         }
 
@@ -28,7 +26,9 @@
         }
 
         h1 {
+            margin: 0;
             margin-bottom: 20px;
+            color: #007bff;
         }
 
         #current-path {
@@ -43,6 +43,10 @@
             border-radius: 4px;
             padding: 8px 12px;
             cursor: pointer;
+        }
+
+        #back-button:hover {
+            background-color: #0056b3;
         }
 
         .directory {

@@ -5,6 +5,12 @@ const currentPathElement = document.getElementById('current-path');
 const backButton = document.getElementById('back-button');
 
 
+
+
+
+
+
+
 backButton.addEventListener('click', () => {
     const currentPath = currentPathElement.textContent;
     const parentPath = currentPath.substring(0, currentPath.lastIndexOf('/'));
@@ -40,6 +46,10 @@ function showDirectoryContent(content) {
             });
         } else {
             itemElement.classList.add('file');
+            itemElement.addEventListener('click', () => {
+                // Dosyayı önizlemek veya indirmek için işlemleri yapabilirsiniz
+                window.location.href = item.path; // Örnek olarak dosyanın indirme bağlantısına yönlendirme
+            });
         }
         contentContainer.appendChild(itemElement);
     });

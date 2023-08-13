@@ -3,9 +3,33 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// MIME türleri için tanımlamalar
+const mimeTypes = {
+    '.txt': 'text/plain',
+    '.html': 'text/html',
+    '.css': 'text/css',
+    '.js': 'application/javascript',
+    '.json': 'application/json',
+    '.jpg': 'image/jpeg',
+    '.jpeg': 'image/jpeg',
+    '.png': 'image/png',
+    '.gif': 'image/gif',
+    // Diğer dosya uzantıları ve MIME türleri
+};
 
 
-app.use(express.static(path.join(__dirname, 'public')));
+// Static dosyaları sunmak için Express middleware
+app.use(express.static(path.join(__dirname, 'public'), {
+    setHeaders: (res, filePath) => {
+        const ext = path.extname(filePath);
+        const mimeType = mimeTypes[ext];
+        if (mimeType) {
+            res.setHeader('Content-Type', mimeType);
+        }
+    }
+}));
+
+// app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/getDirectoryContent', (req, res) => {
     const dirPath = req.query.dirPath || path.join(__dirname, 'files');
