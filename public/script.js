@@ -4,18 +4,12 @@ const contentContainer = document.getElementById('content-container');
 const currentPathElement = document.getElementById('current-path');
 const backButton = document.getElementById('back-button');
 
-
-
-
-
-
-
-
+// This function represents an event listener that specifies what happens when the user clicks the "Back" button.
 backButton.addEventListener('click', () => {
     const currentPath = currentPathElement.textContent;
     const parentPath = currentPath.substring(0, currentPath.lastIndexOf('/'));
 
-    // Sadece dosya klasörü içinde geri gitmeyi sağlayın
+    // Allows the return only within the file folder.
     if (parentPath.includes('files')) {
         fetchDirectoryContent(parentPath);
     } else {
@@ -23,6 +17,7 @@ backButton.addEventListener('click', () => {
     }
 });
 
+// This function is used to retrieve the contents of a specified directory from the server.
 function fetchDirectoryContent(dirPath) {
     fetch(`/getDirectoryContent?dirPath=${encodeURIComponent(dirPath)}`)
         .then(response => response.json())
@@ -47,13 +42,13 @@ function showDirectoryContent(content) {
         } else {
             itemElement.classList.add('file');
             itemElement.addEventListener('click', () => {
-                // Dosyayı önizlemek veya indirmek için işlemleri yapabilirsiniz
-                window.location.href = item.path; // Örnek olarak dosyanın indirme bağlantısına yönlendirme
+                // Actions to preview or download the file
+                window.location.href = item.path;
             });
         }
         contentContainer.appendChild(itemElement);
     });
 }
 
-// İlk yükleme için başlangıç dizini içeriğini alalım.
-fetchDirectoryContent('files'); // Varsayılan olarak 'files' klasörünü alıyoruz
+// 'files' folder by default
+fetchDirectoryContent('files'); 

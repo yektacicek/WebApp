@@ -3,7 +3,7 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// MIME türleri için tanımlamalar
+// Definitions for MIME types
 const mimeTypes = {
     '.txt': 'text/plain',
     '.html': 'text/html',
@@ -14,11 +14,9 @@ const mimeTypes = {
     '.jpeg': 'image/jpeg',
     '.png': 'image/png',
     '.gif': 'image/gif',
-    // Diğer dosya uzantıları ve MIME türleri
 };
 
-
-// Static dosyaları sunmak için Express middleware
+// Express middleware to serve static files
 app.use(express.static(path.join(__dirname, 'public'), {
     setHeaders: (res, filePath) => {
         const ext = path.extname(filePath);
@@ -37,6 +35,7 @@ app.get('/getDirectoryContent', (req, res) => {
     res.json({ dirPath, content });
 });
 
+// Takes the contents of a given array, traverses each element to get its name, type, and full path, and returns this information as an array.
 function getDirectoryContent(dirPath) {
     const fs = require('fs');
     const items = fs.readdirSync(dirPath, { withFileTypes: true });
